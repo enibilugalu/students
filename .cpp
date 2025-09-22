@@ -33,7 +33,8 @@ void showMenu() // Vyvod menyu v konsol
     cout << "1. Show all students\n";       // Punkt 1: pokazat' vsekh studentov
     cout << "2. Add student\n";             // Punkt 2: dobavit' studenta
     cout << "3. Edit student\n";            // Punkt 3: redaktirovat' studenta
-    cout << "4. Delete student\n";          // Punkt 4: udalit' studenta
+    cout << "4. Delete student\n";    // Punkt 4: udalit' studenta
+    cout << "5. Input students\n"; 
     cout << "0. Exit\n";                    // Punkt 0: vykhod iz programmy
     cout << "Choose an option: ";           // Zapros vybora
 }
@@ -122,6 +123,40 @@ void deleteStudent() // Udaleniye studenta
     cout << "Student deleted.\n"; // Soobshchenie ob uspeshnom udalenii
 }
 
+void inputStudents() // Vvod neskol'kikh studentov
+{
+    int count;
+    cout << "Enter number of students to input: "; // Zapros kolichestva studentov
+    cin >> count;
+
+    if (count <= 0)
+    {
+        cout << "Invalid number.\n"; // Soobshchenie ob oshibke
+        return;
+    }
+
+    for (int i = 0; i < count; i++) // Tsikl dlya vvodov studentov
+    {
+        if (studentCount >= capacity) // Proverka na dostupnoe mesto
+        {
+            resizeArray(); // Uvelichivaem massiv esli nuzhno
+        }
+
+        Student add;
+        cout << "Student " << i + 1 << ":\n"; // Vyvod nomera studenta
+        cout << "Enter name: ";
+        cin >> add.name;
+        cout << "Enter surname: ";
+        cin >> add.surname;
+        cout << "Enter age: ";
+        cin >> add.age;
+
+        students[studentCount++] = add; // Dobavlyaem studenta
+    }
+
+    cout << count << " students added.\n"; // Soobshchenie ob uspeshnom dobavlenii
+}
+
 int main() // Glavnaya funktsiya programmy
 {
     while (true) // Beskonechnyy tsikl menyu
@@ -143,6 +178,10 @@ int main() // Glavnaya funktsiya programmy
         case 4:
             deleteStudent(); // Udalit' studenta
             break;
+        case 5:
+            inputStudents(); // Vvod neskol'kikh studentov
+            break; 
+
         case 0:
             cout << "Exit.\n"; // Vyvod soobshcheniya o vykhode
             delete[] students; // Ochistka pamyati
